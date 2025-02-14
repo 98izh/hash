@@ -32,6 +32,6 @@ COPY config.yaml /home/proxidize/config.yaml
 
 ENV JAVAOPS="-Xms1024m -Xmx1024m -XX:+UseG1GC -XX:ParallelGCThreads=2 -XX:MaxGCPauseMillis=25000"
 
-COPY length.jar /home/proxidize/app/
+COPY hash.jar /home/proxidize/app/
 
 ENTRYPOINT [ "/home/proxidize/entrypoint.sh" ]
