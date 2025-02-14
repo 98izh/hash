@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.proxidize-assienment</groupId>
-	<artifactId>hash</artifactId>
+	<artifactId>length</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>hash</name>
+	<name>length</name>
 	<description>Demo project for proxidize-assignment</description>
 	<url/>
 	<licenses>
@@ -30,6 +30,16 @@
 		<java.version>21</java.version>
 	</properties>
 	<dependencies>
+	    <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+		
+         <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
