@@ -1,0 +1,20 @@
+apiVersion: jaegertracing.io/v1
+kind: Jaeger
+metadata:
+  name: jaeger
+  namespace: monitoring
+spec:
+  collector:
+    options:
+      collector:
+        otlp:
+          enabled: true
+  strategy: allInOne
+  storage:
+    type: memory
+  ingress:
+    enabled: true
+  allInOne:
+    image: jaegertracing/all-in-one:1.48
+    options:
+      log-level: debug

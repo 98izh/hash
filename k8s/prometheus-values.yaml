@@ -1,0 +1,38 @@
+serviceAccounts:
+  alertmanager:
+    create: true
+  nodeExporter:
+    create: true
+
+server:
+  persistentVolume:
+    enabled: false
+
+service:
+  type: NodePort
+
+serviceMonitor:
+  enabled: true
+  additionalServiceMonitors:
+  - name: hash-service-monitor
+    selector:
+      matchLabels:
+        app: hash-service
+    namespaceSelector:
+      matchNames:
+      - proxidize
+    endpoints:
+    - port: 8080
+      path: /actuator/prometheus
+      interval: 15s
+  - name: length-service-monitor
+    selector:
+      matchLabels:
+        app: length-service
+    namespaceSelector:
+      matchNames:
+      - proxidize
+    endpoints:
+    - port: 8081
+      path: /actuator/prometheus
+      interval: 15s

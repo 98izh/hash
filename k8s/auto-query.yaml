@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: service-auto-qurey
+  namespace: proxidize
+spec:
+  successfulJobsHistoryLimit: 1
+  schedule: "*/2 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: auto-query
+            image: curlimages/curl:8.6.0
+            command:
+              - /bin/sh
+              - -c
+              - |
+                for i in {1..10}; do
+                  curl -X POST http://hash-service.svc.cluster.local:8080/hash -d "test$i"
+                  curl -X POST http://length-service.svc.cluster.local:8081/length -d "test$i"
+                done
+          restartPolicy: OnFailure
