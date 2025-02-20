@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hash-service
+    component: hash
+  name: hash-service
+  namespace: proxidize
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hash-service
+      component: hash
+  template:
+    metadata:
+      labels:
+        app: hash-service
+        component: hash
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: "/actuator/prometheus"
+        prometheus.io/port: "8080"
+    spec:
+      volumes:
+        - name: config-volume
+          configMap:
+            name: hash-app-config
+      containers:
+      - name: hash-service
+        resources:
+          requests:
+            memory: "2Gi"
+            cpu: "2"
+          limits:
+            memory: "4Gi"
+            cpu: "4"
+        env:
+          - name: OTEL_METRICS_EXPORTER
+            value: "none"
+          - name: OTEL_TRACES_EXPORTER
+            value: "otlp"
+          - name: OTEL_EXPORTER_OTLP_ENDPOINT
+            value: "http://jaeger-collector.monitoring.svc.cluster.local:4317"
+          - name: OTEL_SERVICE_NAME
+            value: "hash-service"
+          - name: OTEL_EXPORTER_OTLP_PROTOCOL
+            value: "grpc"
+          - name: OTEL_LOGS_EXPORTER
+            value: "none"
+        image: 98izh/hash:latest
+        ports:
+        - containerPort: 8080
+          name: http
+        volumeMounts:
+        - name: config-volume
+          mountPath: /etc/config
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: http
+          initialDelaySeconds: 60 #increase if pod failed to start
+        readinessProbe:
+          httpGet:
+            path: /actuator/health
+            port: http
+          initialDelaySeconds: 60 #increase if pod failed to start

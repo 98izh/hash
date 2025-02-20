@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: proxidize
+  name: hash-service
+  labels:
+    release: prometheus
+    app: hash-service
+    component: hash
+spec:
+  selector:
+    app: hash-service
+    component: hash
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080

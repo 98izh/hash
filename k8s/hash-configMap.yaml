@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hash-app-config
+  namespace: proxidize
+data:
+  application.properties: |
+    spring.application.name=hash
+    server.port=8080
+    management.endpoints.jmx.exposure.include=*
+    management.endpoint.metrics.enabled=true
+    management.metrics.export.prometheus.enabled=true
+    management.endpoints.web.exposure.include=*
+    management.server.port=8080
+    management.endpoint.prometheus.enabled=true
+    management.metrics.tags.service=hash
+    management.metrics.enable.jvm=true
+    opentelemetry.service.name=hash
+    opentelemetry.traces.exporter=otlp
+    opentelemetry.metrics.exporter=none
+    opentelemetry.propagators=tracecontext,baggage
+    otel.exporter.otlp.endpoint=http://jaeger-collector.monitoring.svc.cluster.local:4317
+    otel.exporter.otlp.protocol=grpc
+    otel.exporter.otlp.metrics.enabled=none
+    otel.traces.exporter=otlp
