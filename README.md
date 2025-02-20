@@ -7,60 +7,8 @@ Platform: Kubernetes minikube 1.32.
 
 
 ###### Architecture ######
-hash/
-├── src/
-│   └── main/
-│       ├── java/com/example/proxidize_assienment/
-│       │   ├── hash/HashApplication.java
-│       │   └── controller/HashController.java
-│       └── resources/application.properties
-│  └── docker/
-│       ├── config.yaml
-│       ├── Dockerfile
-│       └── entrypoint.sh
-│  └── k8s/
-│       ├── auto-qurey.yaml
-│       ├── hash-configMap.yaml
-│       ├── hash-deployment.yaml
-│       ├── hash-service.yaml
-│       ├── hash-serviceMonitor.yaml
-│       ├── hash-np.yaml
-│       ├── jaeger-values.yaml     #values for jaeger chart
-│       ├── loki-values.yaml       #values for loki chart (log aggregation in Grafana).
-│       └── prometheus-values.yaml #values for prometheus chart
-│  └── screenshots
-│       ├── Jeger for length service.png
-│       ├── Key JVM metrics of length service.png
-│       ├── Key JVM metrics for hash service.png
-│       ├── key spring metrics for both services.png
-│       ├── Testing hash service from inside the pod.png
-│       ├── kubectl get all -n proxidize -n monitoring
-│       ├── Testing hash service from outside the pod.png
-│       ├── Testing length service from inside the pod.png
-│       └── Testing length service from outside the pod.png
-|  └── pom.xml
-|  └── readme.md
 
-
-length/
-├── src/
-│   └── main/
-│       ├── java/com/example/proxidize_assienment/
-│       │   ├── length/LengthApplication.java
-│       │   └── controller/LengthController.java
-│       └── resources/application.properties
-│  └── docker/
-│       ├── config.yaml
-│       ├── Dockerfile
-│       └── entrypoint.sh
-│  └── k8s/
-│       ├── length-configMap.yaml
-│       ├── length-deployment.yaml
-│       ├── length-np.yaml
-│       ├── lrngth-service.yaml
-│       └── length-serviceMonitor.yaml
-|  └── pom.xml
-
+Please refer to hash/screenshots for detailed architecture.
 
 
 
